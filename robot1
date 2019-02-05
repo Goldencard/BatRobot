@@ -1,0 +1,37 @@
+import json
+import time
+print (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) 
+import requests
+api_url = "http://openapi.tuling123.com/openapi/api/v2"
+#an api that connect to a Chinese robot called turing robot
+while 1:
+    content1 = input('me：')
+    if content1=="quit()":#set up a way to quit
+        print('angle:Sir, you don\'t want to talk to me ,im so sad')
+        break
+    data = {
+        "perception":
+        {
+            "inputText":
+            {
+                "text":content1#get the content
+            },
+       
+        },
+
+        "userInfo":
+        {
+            "apiKey": "need to regist in the website",
+            "userId": "need to regist in the website"
+        }
+    }
+    data = json.dumps(data).encode('utf8')
+    response_str = requests.post(api_url, data=data, headers={'content-type': 'application/json'})
+    response_dic = response_str.json()
+    results_text = response_dic['results'][0]['values']['text']
+    content2=results_text
+    
+    
+    print('Sir：' + content2)
+print("")
+
